@@ -1,11 +1,11 @@
 package dev.starzynski.learnify.Service;
 
-import dev.starzynski.learnify.Repository.UserRepository;
+import dev.starzynski.learnify.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class CategoryService {
     @Autowired
-    private UserRepository userRepository;
+    private CategoryRepository categoryRepository;
 }

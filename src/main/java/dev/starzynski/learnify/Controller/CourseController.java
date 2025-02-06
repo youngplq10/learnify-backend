@@ -1,11 +1,11 @@
 package dev.starzynski.learnify.Controller;
 
-import dev.starzynski.learnify.Service.UserService;
+import dev.starzynski.learnify.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class UserController {
+public class CourseController {
     @Autowired
-    private UserService userService;
+    private CourseService courseService;
 }

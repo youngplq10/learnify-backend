@@ -5,7 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "users")
 public class User {
@@ -17,8 +19,8 @@ public class User {
     private String password;
     private String role;
 
-    //learning courses
-    //creatingg courses
+    final private List<Course> learningCourses;
+    final private List<Course> creatingCourses;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date createdAtDate;
@@ -26,6 +28,8 @@ public class User {
     public User() {
         this.id = new ObjectId();
         this.createdAtDate = new Date();
+        this.learningCourses = new ArrayList<>();
+        this.creatingCourses = new ArrayList<>();
     }
 
     public Object getId() { return id; }
@@ -40,7 +44,10 @@ public class User {
     public void setPassword(String password) { this.password = password; }
 
     public String getRole() { return role; }
-    public void setRole() { this.role = role; }
+    public void setRole(String role) { this.role = role; }
+
+    public List<Course> getLearningCourses() { return learningCourses; }
+    public List<Course> getCreatingCourses() { return creatingCourses; }
 
     public Date getCreatedAtDate() { return createdAtDate; }
 }
