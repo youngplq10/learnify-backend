@@ -30,6 +30,7 @@ public class User {
         this.createdAtDate = new Date();
         this.learningCourses = new ArrayList<>();
         this.creatingCourses = new ArrayList<>();
+        this.role = "USER";
     }
 
     public Object getId() { return id; }
@@ -44,7 +45,6 @@ public class User {
     public void setPassword(String password) { this.password = password; }
 
     public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
 
     public List<Course> getLearningCourses() { return learningCourses; }
     public List<Course> getCreatingCourses() { return creatingCourses; }
