@@ -18,7 +18,7 @@ public class Course {
 
     @DBRef
     @JsonIgnoreProperties({"learningCourses", "creatingCourses"})
-    final private User creator;
+    private User creator;
 
     private String title;
     private String description;
@@ -35,17 +35,17 @@ public class Course {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date createdAtDate;
 
-    public Course(User creator) {
+    public Course() {
         this.id = new ObjectId();
         this.createdAtDate = new Date();
         this.lessons = new ArrayList<>();
         this.reviews = new ArrayList<>();
-        this.creator = creator;
     }
 
     public ObjectId getId() { return id; }
 
     public User getCreator() { return creator; }
+    public void setCreator(User creator) { this.creator = creator; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
