@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CourseRepository extends MongoRepository<Course, ObjectId> {
+    Course findByTitleIgnoreCase(String title);
 }

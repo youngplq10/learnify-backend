@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Service
 public class CourseService {
@@ -30,7 +31,7 @@ public class CourseService {
     private UserRepository userRepository;
 
     @Value("${upload.directory}")
-    public String uploadDirectory = "/uploads/";
+    public String uploadDirectory = "/files/";
 
     public Boolean createCourse(String courseJSON, String username, String categoryName, MultipartFile promotingVideo, MultipartFile thumbnail) {
         try{
@@ -52,8 +53,8 @@ public class CourseService {
             Files.write(videoPath, videoBytes);
             Files.write(thumbnailPath, thumbnailBytes);
 
-            course.setVideoLink("/uploads/" + course.getId() + promotingVideo.getOriginalFilename());
-            course.setBannerImageLink("/uploads/" + course.getId() + thumbnail.getOriginalFilename());
+            course.setVideoLink("/files/" + course.getId() + promotingVideo.getOriginalFilename());
+            course.setBannerImageLink("/files/" + course.getId() + thumbnail.getOriginalFilename());
 
             courseRepository.insert(course);
 
@@ -61,5 +62,13 @@ public class CourseService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Course> getAllCourses() {
+        return courseRepository.findAll();
+    }
+
+    public Course getCourse(String title) {
+        return courseRepository.findByTitleIgnoreCase(title);
     }
 }
