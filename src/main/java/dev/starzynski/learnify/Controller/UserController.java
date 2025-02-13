@@ -23,4 +23,9 @@ public class UserController {
     public ResponseEntity<String> register(@RequestBody User user){
         return new ResponseEntity<String> (userService.register(user), HttpStatus.OK);
     }
+
+    @PostMapping("/auth/sign-up-for-course")
+    public ResponseEntity<Boolean> signUpForCourse(@RequestParam String username, @RequestParam String courseTitle){
+        return new ResponseEntity<Boolean> (userService.signUpForCourse(username, courseTitle), HttpStatus.OK);
+    }
 }

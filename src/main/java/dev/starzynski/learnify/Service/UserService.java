@@ -1,6 +1,8 @@
 package dev.starzynski.learnify.Service;
 
+import dev.starzynski.learnify.Model.Course;
 import dev.starzynski.learnify.Model.User;
+import dev.starzynski.learnify.Repository.CourseRepository;
 import dev.starzynski.learnify.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +21,9 @@ public class UserService {
 
     @Autowired
     private JWTService jwtService;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     public String login(User user) {
         try {
@@ -39,5 +44,22 @@ public class UserService {
     public String register(User user) {
         userRepository.insert(user);
         return jwtService.generateToken(user.getUsername());
+    }
+
+    public Boolean signUpForCourse(String username, String courseTitle) {
+        try {
+            User user = userRepository.findByUsername(username).orElseThrow();
+            Course course = courseRepository.findByTitleIgnoreCase(courseTitle);
+
+            user.getLearningCourses().add(course);
+            userRepository.save(user);
+
+            course.getStudents().add(user);
+            courseRepository.save(course);
+
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

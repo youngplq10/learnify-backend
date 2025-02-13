@@ -25,8 +25,15 @@ public class Course {
     private String videoLink;
     private String bannerImageLink;
 
+    @DBRef
+    @JsonIgnoreProperties("course")
     final private List<Lesson> lessons;
+    @DBRef
     final private List<Review> reviews;
+
+    @DBRef
+    @JsonIgnoreProperties({"learningCourses", "creatingCourses"})
+    final private List<User> students;
 
     @DBRef
     @JsonIgnoreProperties("courses")
@@ -40,6 +47,7 @@ public class Course {
         this.createdAtDate = new Date();
         this.lessons = new ArrayList<>();
         this.reviews = new ArrayList<>();
+        this.students = new ArrayList<>();
     }
 
     public ObjectId getId() { return id; }
@@ -63,6 +71,8 @@ public class Course {
 
     public List<Lesson> getLessons() { return lessons; }
     public List<Review> getReviews() { return reviews; }
+
+    public List<User> getStudents() { return students; }
 
     public Category getCategory() { return category; }
     public void setCategory(Category category) { this.category = category; }
