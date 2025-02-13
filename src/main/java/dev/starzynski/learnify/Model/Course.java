@@ -33,7 +33,7 @@ public class Course {
 
     @DBRef
     @JsonIgnoreProperties({"learningCourses", "creatingCourses"})
-    final private List<User> students;
+    private List<User> students;
 
     @DBRef
     @JsonIgnoreProperties("courses")

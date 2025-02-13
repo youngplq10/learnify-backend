@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -47,19 +48,18 @@ public class UserService {
     }
 
     public Boolean signUpForCourse(String username, String courseTitle) {
-        try {
-            User user = userRepository.findByUsername(username).orElseThrow();
-            Course course = courseRepository.findByTitleIgnoreCase(courseTitle);
+        User user = userRepository.findByUsername(username).orElseThrow();
+        Course course = courseRepository.findByTitleIgnoreCase(courseTitle);
 
-            user.getLearningCourses().add(course);
-            userRepository.save(user);
+        user.getLearningCourses().add(course);
+        userRepository.save(user);
 
-            course.getStudents().add(user);
-            courseRepository.save(course);
+        course.getStudents().add(user);
+        courseRepository.save(course);
+        return true;
+    }
 
-            return true;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public User getUserData(String username) {
+        return userRepository.findByUsername(username).orElseThrow();
     }
 }

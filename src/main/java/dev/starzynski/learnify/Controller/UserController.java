@@ -28,4 +28,9 @@ public class UserController {
     public ResponseEntity<Boolean> signUpForCourse(@RequestParam String username, @RequestParam String courseTitle){
         return new ResponseEntity<Boolean> (userService.signUpForCourse(username, courseTitle), HttpStatus.OK);
     }
+
+    @GetMapping("/auth/user/{username}")
+    public ResponseEntity<User> getUserData(@PathVariable String username) {
+        return new ResponseEntity<User> (userService.getUserData(username), HttpStatus.OK);
+    }
 }

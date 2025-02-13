@@ -1,7 +1,9 @@
 package dev.starzynski.learnify.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,8 +21,13 @@ public class User {
     private String password;
     private String role;
 
-    final private List<Course> learningCourses;
-    final private List<Course> creatingCourses;
+    @DBRef
+    @JsonIgnoreProperties("students")
+    private List<Course> learningCourses;
+
+    @DBRef
+    @JsonIgnoreProperties("students")
+    private List<Course> creatingCourses;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date createdAtDate;
