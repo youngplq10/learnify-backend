@@ -31,12 +31,19 @@ public class CourseService {
     private UserRepository userRepository;
 
     @Value("${upload.directory}")
-    public String uploadDirectory = "/files/";
+    public String uploadDirectory;
 
-    public Boolean createCourse(String courseJSON, String username, String categoryName, MultipartFile promotingVideo, MultipartFile thumbnail) {
+    public Boolean createCourse(String title, String description, String username, String categoryName, MultipartFile promotingVideo, MultipartFile thumbnail) {
         try{
-            ObjectMapper objectMapper = new ObjectMapper();
-            Course course = objectMapper.readValue(courseJSON, Course.class);
+            File directory = new File(uploadDirectory);
+
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            Course course = new Course();
+            course.setTitle(title);
+            course.setDescription(description);
 
             Category category = categoryRepository.findByName(categoryName);
             User user = userRepository.findByUsername(username).orElseThrow();
@@ -53,8 +60,8 @@ public class CourseService {
             Files.write(videoPath, videoBytes);
             Files.write(thumbnailPath, thumbnailBytes);
 
-            course.setVideoLink("/files/" + course.getId() + promotingVideo.getOriginalFilename());
-            course.setBannerImageLink("/files/" + course.getId() + thumbnail.getOriginalFilename());
+            course.setVideoLink("/uploads/" + course.getId() + promotingVideo.getOriginalFilename());
+            course.setBannerImageLink("/uploads/" + course.getId() + thumbnail.getOriginalFilename());
 
             courseRepository.insert(course);
 

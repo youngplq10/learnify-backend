@@ -5,6 +5,8 @@ import dev.starzynski.learnify.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
     @Autowired
@@ -17,5 +19,9 @@ public class CategoryService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 }

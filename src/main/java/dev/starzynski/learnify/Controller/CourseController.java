@@ -18,8 +18,8 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping(value = "/auth/course", consumes = {"multipart/form-data"})
-    public ResponseEntity<Boolean> createCourse(@RequestPart String courseJSON, @RequestPart String username, @RequestPart String categoryName, @RequestPart MultipartFile promotingVideo, @RequestPart MultipartFile thumbnail){
-        return new ResponseEntity<Boolean> (courseService.createCourse(courseJSON, username, categoryName, promotingVideo, thumbnail), HttpStatus.CREATED);
+    public ResponseEntity<Boolean> createCourse(@RequestPart String title, @RequestPart String description, @RequestPart String username, @RequestPart String categoryName, @RequestPart MultipartFile promotingVideo, @RequestPart MultipartFile thumbnail){
+        return new ResponseEntity<Boolean> (courseService.createCourse(title, description, username, categoryName, promotingVideo, thumbnail), HttpStatus.CREATED);
     }
 
     @GetMapping("/public/courses")
