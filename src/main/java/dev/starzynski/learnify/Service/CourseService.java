@@ -64,6 +64,8 @@ public class CourseService {
             course.setBannerImageLink("/uploads/" + course.getId() + thumbnail.getOriginalFilename());
 
             courseRepository.insert(course);
+            user.getCreatingCourses().add(course);
+            userRepository.save(user);
 
             return true;
         } catch (IOException e) {
