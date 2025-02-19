@@ -26,8 +26,7 @@ public class Course {
     private String bannerImageLink;
 
     @DBRef
-    @JsonIgnoreProperties("course")
-    final private List<Lesson> lessons;
+    private List<Lesson> lessons;
     @DBRef
     final private List<Review> reviews;
 
